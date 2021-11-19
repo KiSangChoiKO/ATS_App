@@ -4,6 +4,10 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+
+        maven{
+            url "https://maven.google.com" //Google's Maven repository
+        }
     }
 }
 rootProject.name = "ATS_App"
