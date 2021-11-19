@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BoardActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:layout_marginBottom="6dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_portrait_24"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최정우님 후기를 남겨주세요"
+            android:textColor="#000000"
+            android:textSize="24dp"
+            android:fontFamily="@font/cafe24ssurroundair"
+            android:id="@+id/name"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:stepSize="1"
+            android:theme="@style/RatingBar"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
