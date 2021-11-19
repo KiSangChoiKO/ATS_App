@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/borderline.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.1" />
         <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_portrait_24.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_storefront_24.xml" value="0.13518518518518519" />
         <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_west_24.xml" value="0.21203703703703702" />
-        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_board.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_board.xml" value="0.4" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/ic_baseline_location_on_24.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/user_comment.xml" value="0.1" />
       </map>
     </option>
   </component>
