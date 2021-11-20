@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     private MapFragment map;
 
-    //툴바*
+    //툴바
     private ImageView ivMenu;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private EditText searchText;
+
     //
 
 
@@ -75,8 +78,13 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation);
-        firebaseAuth=firebaseAuth.getInstance();
+        searchText =findViewById(R.id.search);
 
+
+        searchText.bringToFront();
+        navigationView.bringToFront();
+        //파베
+        firebaseAuth=firebaseAuth.getInstance();
         Menu menu = navigationView.getMenu();
         db = FirebaseFirestore.getInstance();
 
