@@ -33,7 +33,13 @@ public class Store {
         this.introduce = introduce;
     }
 
-    public List<String> getPositionIndex() { return this.positionIndex; }
+    public String[] getPositionIndex() {
+        String[] str = new String[this.positionIndex.size()];
+        for(int i = 0; i < str.length; i++){
+            str[i] = positionIndex.get(i);
+        }
+        return str;
+    }
 
     public void setPositionIndex(List<String> positionIndex) {
         this.positionIndex = positionIndex;

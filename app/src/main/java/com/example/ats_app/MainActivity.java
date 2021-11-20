@@ -8,23 +8,40 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.NaverMapSdk;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private MapFragment map;
+
+    //search 리스트, 어댑터
+    private ArrayList<Store> stores;
+    private SearchAdapter sa;
+    private ArrayList<Store> list;
 
     //툴바
     private ImageView ivMenu;
@@ -78,17 +95,24 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation);
-        searchText =findViewById(R.id.search);
+        searchText = findViewById(R.id.search);
 
 
         searchText.bringToFront();
         navigationView.bringToFront();
         //파베
-        firebaseAuth=firebaseAuth.getInstance();
+        firebaseAuth = firebaseAuth.getInstance();
         Menu menu = navigationView.getMenu();
         db = FirebaseFirestore.getInstance();
 
 
+        stores = new ArrayList<>();
+        list = new ArrayList<>();//검색된 리스트 뷰에 추가할 리스트
+        ListView listView = findViewById(R.id.listView);
+        listView.bringToFront();
+
+        //검색 어댑터
+        sa = new SearchAdapter(this, list);
         //액션바 변경하기(들어갈 수 있는 타입 : Toolbar type*
         setSupportActionBar((androidx.appcompat.widget.Toolbar) toolbar);
 
@@ -97,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //유저가 로그인 되어있을 경우 이프문은 파베 연결시 추가
-                if(firebaseAuth.getCurrentUser() != null){
+                if (firebaseAuth.getCurrentUser() != null) {
                     //메뉴추가
                     MenuItem first = menu.findItem(R.id.action_login);
                     first.setTitle("프로필");
@@ -108,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 //비로그인인 경우
-                else{
+                else {
                     MenuItem first = menu.findItem(R.id.action_login);
                     first.setTitle("로그인");
                     first.setIcon(R.drawable.ic_baseline_login_24);
@@ -130,21 +154,19 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.action_login) {
-                    if(item.getTitle().equals("로그인")){
+                    if (item.getTitle().equals("로그인")) {
                         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                         startActivity(intent);
-                    }
-                    else if(item.getTitle().equals("프로필")){
+                    } else if (item.getTitle().equals("프로필")) {
                         Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                         startActivity(intent);
                     }
 
                 } else if (id == R.id.action_logup) {
-                    if(item.getTitle().equals("회원가입")){
+                    if (item.getTitle().equals("회원가입")) {
                         Intent intent = new Intent(getBaseContext(), LogupActivity.class);
                         startActivity(intent);
-                    }
-                    else if(item.getTitle().equals("로그아웃")){
+                    } else if (item.getTitle().equals("로그아웃")) {
                         firebaseAuth.signOut();
                         Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_SHORT).show();
                     }
@@ -160,8 +182,68 @@ public class MainActivity extends AppCompatActivity {
         map = new MapFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainerView, map).commit();
 
+        db.collection("store")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //db에서 가게정보 불러오기
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                stores.add(document.toObject(Store.class));
+                            }
+
+                            //검색어 입력시
+                            searchText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    String text = searchText.getText().toString();
+                                    search(text);
+                                    listView.setAdapter(sa);
+                                }
+                            });
+
+                        } else {
+                            Store s = new Store();
+                            stores.add(s);
+                        }
+                    }
+                });
 
     }
 
+    public void search(String charText) {
+        list.clear();
 
+        // 문자 입력이 없을때는 없음
+        if (charText.length() == 0) {
+
+        }
+        // 문자 입력을 할때..
+        else
+        {
+            // 리스트의 모든 데이터를 검색한다.
+            for(int i = 0;i < stores.size(); i++)
+            {
+                // arraylist의 모든 데이터에 입력받은 단어(charText)가 포함되어 있으면 true를 반환한다.
+                if (stores.get(i).getStoreName().toLowerCase().contains(charText))
+                {
+                    // 검색된 데이터를 리스트에 추가한다.
+                    Log.v("search",stores.get(i).getStoreName());
+                    list.add(stores.get(i));
+                }
+            }
+        }
+
+        // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
+        sa.notifyDataSetChanged();
+    }
 }
