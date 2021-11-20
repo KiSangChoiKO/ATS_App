@@ -11,7 +11,8 @@
         android:theme="@style/Theme.ATS_App">
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".BoardActivity"
             android:exported="false"

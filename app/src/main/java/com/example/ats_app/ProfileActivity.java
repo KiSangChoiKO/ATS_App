@@ -3,6 +3,7 @@ package com.example.ats_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView email, name, id;
+    private Toolbar toolbar;
     private ImageView profile;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
@@ -35,6 +37,10 @@ public class ProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.name_text);
         profile = findViewById(R.id.myprofile);
         profile.setImageResource(R.drawable.myprofille);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar((androidx.appcompat.widget.Toolbar) toolbar);
+
         DocumentReference docRef = db.collection("member").document(firebaseAuth.getCurrentUser().getEmail().toString());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
