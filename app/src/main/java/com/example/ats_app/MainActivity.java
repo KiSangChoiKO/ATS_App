@@ -211,12 +211,46 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    if(firebaseAuth.getCurrentUser() != null) {
+
+                                        Intent intent = new Intent(getBaseContext(), BoardActivity.class);
+                                        Store s = list.get(i);
+
+                                        intent.putExtra("address", s.getAddress());
+                                        intent.putExtra("buisnessName", s.getBusinessName());
+                                        intent.putExtra("detailAddress", s.getDetailAddress());
+                                        intent.putExtra("id", s.getId());
+                                        intent.putExtra("introduce", s.getIntroduce());
+                                        intent.putExtra("phone", s.getPhone());
+                                        Log.v("test", String.valueOf(s.getAddress()));
+                                        intent.putExtra("positionIndex", s.getPositionIndex());
+                                        intent.putExtra("storeName", s.getStoreName());
+                                        intent.putExtra("totalSeat", s.getTotalSeat().toString());
+                                        intent.putExtra("type", s.getType());
+                                        Log.v("total Seat : ", s.getTotalSeat().toString());
+
+                                        startActivity(intent);
+                                    }
+                                    else{
+                                        Toast.makeText(getBaseContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
+
                         } else {
                             Store s = new Store();
+                            s.addNull();
                             stores.add(s);
                         }
                     }
                 });
+
+
 
     }
 

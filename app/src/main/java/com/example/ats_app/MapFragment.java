@@ -272,6 +272,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onClick(@NonNull Overlay overlay) {
                 if(auth.getCurrentUser() != null) {
                     Intent intent = new Intent(getContext(), BoardActivity.class);
+                    Log.v("marker click", store.getAddress());
+                    Log.v("marker click", String.valueOf(store.getPositionIndex().length));
 
                     intent.putExtra("address", store.getAddress());
                     intent.putExtra("buisnessName", store.getBusinessName());
