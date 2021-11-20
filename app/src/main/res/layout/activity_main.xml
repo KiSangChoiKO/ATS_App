@@ -43,6 +43,16 @@
             android:layout_marginRight="5dp"
             />
 
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search"
+            tools:listitem="@layout/listview"
+            android:dividerHeight="0px"
+            android:divider="#FFFFFF"
+            />
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.naver.maps.map.MapFragment"
