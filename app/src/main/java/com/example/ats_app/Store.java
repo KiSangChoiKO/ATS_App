@@ -112,4 +112,16 @@ public class Store {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void addNull(){
+        String address = "not real address";
+        String id;
+        String detailAddress;
+        String businessName;
+        String phone;
+        String storeName;
+        List<String> positionIndex;
+        Long totalSeat;
+        String type;
+    }
 }
