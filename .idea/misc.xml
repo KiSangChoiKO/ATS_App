@@ -13,6 +13,7 @@
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_login.xml" value="0.2390625" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_logup.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_profile.xml" value="0.15416666666666667" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/boreder.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/header.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/layout/login.xml" value="0.1" />
@@ -23,12 +24,6 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.1" />
-        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_portrait_24.xml" value="0.1" />
-        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_west_24.xml" value="0.21203703703703702" />
-        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_board.xml" value="0.1" />
-  </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
