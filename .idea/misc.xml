@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/borderline.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.18796296296296297" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/boreder.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/cafe.xml" value="0.1828125" />
         <entry key="..\:/Users/99san/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/edge.xml" value="0.26979166666666665" />
@@ -29,6 +32,22 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+
+
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_people_alt_24.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_portrait_24.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_storefront_24.xml" value="0.13518518518518519" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/drawable/ic_baseline_west_24.xml" value="0.21203703703703702" />
+
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_board.xml" value="0.4" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/ic_baseline_location_on_24.xml" value="0.1" />
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/user_comment.xml" value="0.1" />
+
+        <entry key="..\:/Users/skwjd/AndroidStudioProjects/ATS_App/app/src/main/res/layout/activity_board.xml" value="0.1" />
+
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
