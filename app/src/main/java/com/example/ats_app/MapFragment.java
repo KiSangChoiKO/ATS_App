@@ -178,7 +178,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             if (point.havePoint) sCnt++;
                             else fCnt++;
                             finalStore.setP(new LatLng(point.getY(),point.getX()));
-                            createMarker(new LatLng(point.getY(),point.getX()), finalStore);
+                            createMarker(new LatLng(point.getY(),point.getX()), finalStore,
+                                    finalStore.get_left_table_cnt(finalStore.getPositionIndex()));
                         }
                         Log.d("TEST_CODE", String.format("성공 : %s, 실패 : %s", sCnt, fCnt));
                     }
@@ -264,7 +265,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onLowMemory();
     }
 
-    public void createMarker(LatLng loc, Store store){
+    public void createMarker(LatLng loc, Store store, int left_table){
         Marker marker = new Marker();
         marker.setOnClickListener(new Overlay.OnClickListener() {
 
@@ -273,7 +274,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onClick(@NonNull Overlay overlay) {
                 if(auth.getCurrentUser() != null) {
                     Intent intent = new Intent(getContext(), BoardActivity.class);
-                    Log.v("marker click", String.valueOf(store.getPositionIndex().length));
 
                     intent.putExtra("address", store.getAddress());
                     intent.putExtra("buisnessName", store.getBusinessName());
@@ -314,7 +314,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker.setIconTintColor(Color.YELLOW);
         }
 
-        marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + String.valueOf(store.getTotalSeat()));
+        //marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + String.valueOf(store.getTotalSeat()));
+        marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + left_table);
         marker.setCaptionTextSize(15);
 
     }

@@ -124,4 +124,17 @@ public class Store {
         Long totalSeat;
         String type;
     }
+
+    public int get_left_table_cnt(String[] str){
+        int left_table =0;
+        for(int i = 0 ; i < str.length; i++){
+            String[] parser = new String[4];
+            parser = str[i].split(",");
+            if((parser[0].equals("twoTable") && parser[3].equals("0")) |(
+                    parser[0].equals("fourTable") && parser[3].equals("0")) ){
+                left_table ++;
+            }
+        }
+        return left_table;
+    }
 }

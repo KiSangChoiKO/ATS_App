@@ -41,7 +41,7 @@ public class Thing {
             this.type = null;
         }
         this.x = Integer.parseInt(a[1])-220;
-        this.y = Integer.parseInt(a[2])-100;
+        this.y = Integer.parseInt(a[2]);
     }
 
 
