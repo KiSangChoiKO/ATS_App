@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.naver.maps.map.NaverMapSdk;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MapFragment map;
 
     //툴바*
     private ImageView ivMenu;
@@ -47,11 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
+
         super.onPause();
+        map.onDestroy();
     }
     @Override
     public void onResume() {
+
         super.onResume();
+        //다시 메인화면으로 왔을때 맵 초기화 db에서 값 다시가져오게 하기
+        map = new MapFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainerView, map).commit();
+
     }
 
 
@@ -59,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ivMenu = findViewById(R.id.iv_menu);
         drawerLayout = findViewById(R.id.drawer);
@@ -103,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //툴바* 이것도 비로그인시 만 먼저
+        //툴바
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);             //메뉴바 안의 항목들 터치리스너
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -116,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else if(item.getTitle().equals("프로필")){
+                        Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                        startActivity(intent);
                     }
 
                 } else if (id == R.id.action_logup) {
@@ -134,6 +147,11 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //맵 프래그먼트 화면에 출력
+        map = new MapFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainerView, map).commit();
+
 
     }
 

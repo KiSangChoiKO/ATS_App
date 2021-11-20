@@ -8,6 +8,9 @@ dependencyResolutionManagement {
         maven{
             url "https://maven.google.com" //Google's Maven repository
         }
+        maven {
+            url 'https://naver.jfrog.io/artifactory/maven/'
+        }
     }
 }
 rootProject.name = "ATS_App"
