@@ -19,8 +19,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ats_app.geocoding.GeoPointer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     //
 
-
+    private TextView blank;
     //파이어베이스
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
@@ -97,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation);
         searchText = findViewById(R.id.search);
 
-
+        blank = findViewById(R.id.blank);
+        blank.bringToFront();
         searchText.bringToFront();
         navigationView.bringToFront();
         //파베
@@ -208,6 +211,35 @@ public class MainActivity extends AppCompatActivity {
                                     String text = searchText.getText().toString();
                                     search(text);
                                     listView.setAdapter(sa);
+
+                                    //카메라 움직임
+                                    if(list.size()!=0) {
+                                        blank.setVisibility(View.VISIBLE);
+                                        GeoPointer.OnGeoPointListener listener = new GeoPointer.OnGeoPointListener() {
+                                            @Override
+                                            public void onPoint(GeoPointer.Point[] p) {
+                                                int sCnt = 0, fCnt = 0;
+                                                for (GeoPointer.Point point : p) {
+                                                    if (point.havePoint) sCnt++;
+                                                    else fCnt++;
+
+                                                    CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(point.getY(), point.getX()));
+                                                    map.cameraUpdate(cameraUpdate);
+                                                }
+                                                Log.d("TEST_CODE", String.format("성공 : %s, 실패 : %s", sCnt, fCnt));
+                                            }
+
+                                            @Override
+                                            public void onProgress(int progress, int max) {
+                                                Log.d("TEST_CODE", String.format("좌표를 얻어오는중 %s / %s", progress, max));
+                                            }
+                                        };
+                                        GeoPointer geoPointer = new GeoPointer(getBaseContext(), listener);
+                                        geoPointer.execute(list.get(0).getAddress());
+                                    }
+                                    else{
+                                        blank.setVisibility(View.INVISIBLE);
+                                    }
                                 }
                             });
 

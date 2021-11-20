@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -316,5 +317,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + String.valueOf(store.getTotalSeat()));
         marker.setCaptionTextSize(15);
 
+    }
+
+    public void cameraUpdate(CameraUpdate cm){
+        naverMap.moveCamera(cm);
+        Log.v("test",cm.toString());
     }
 }
