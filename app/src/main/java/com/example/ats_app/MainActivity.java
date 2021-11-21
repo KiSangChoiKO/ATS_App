@@ -19,8 +19,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ats_app.geocoding.GeoPointer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     //
 
-
+    private TextView blank;
     //파이어베이스
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
@@ -97,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation);
         searchText = findViewById(R.id.search);
 
-
+        blank = findViewById(R.id.blank);
+        blank.bringToFront();
         searchText.bringToFront();
         navigationView.bringToFront();
         //파베
@@ -208,15 +211,78 @@ public class MainActivity extends AppCompatActivity {
                                     String text = searchText.getText().toString();
                                     search(text);
                                     listView.setAdapter(sa);
+
+                                    //카메라 움직임
+                                    if(list.size()!=0) {
+                                        blank.setVisibility(View.VISIBLE);
+                                        GeoPointer.OnGeoPointListener listener = new GeoPointer.OnGeoPointListener() {
+                                            @Override
+                                            public void onPoint(GeoPointer.Point[] p) {
+                                                int sCnt = 0, fCnt = 0;
+                                                for (GeoPointer.Point point : p) {
+                                                    if (point.havePoint) sCnt++;
+                                                    else fCnt++;
+
+                                                    CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(point.getY(), point.getX()));
+                                                    map.cameraUpdate(cameraUpdate);
+                                                }
+                                                Log.d("TEST_CODE", String.format("성공 : %s, 실패 : %s", sCnt, fCnt));
+                                            }
+
+                                            @Override
+                                            public void onProgress(int progress, int max) {
+                                                Log.d("TEST_CODE", String.format("좌표를 얻어오는중 %s / %s", progress, max));
+                                            }
+                                        };
+                                        GeoPointer geoPointer = new GeoPointer(getBaseContext(), listener);
+                                        geoPointer.execute(list.get(0).getAddress());
+                                    }
+                                    else{
+                                        blank.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+                            });
+
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                    if(firebaseAuth.getCurrentUser() != null) {
+
+                                        Intent intent = new Intent(getBaseContext(), BoardActivity.class);
+                                        Store s = list.get(i);
+
+                                        intent.putExtra("address", s.getAddress());
+                                        intent.putExtra("buisnessName", s.getBusinessName());
+                                        intent.putExtra("detailAddress", s.getDetailAddress());
+                                        intent.putExtra("id", s.getId());
+                                        intent.putExtra("introduce", s.getIntroduce());
+                                        intent.putExtra("phone", s.getPhone());
+                                        Log.v("test", String.valueOf(s.getAddress()));
+                                        intent.putExtra("positionIndex", s.getPositionIndex());
+                                        intent.putExtra("storeName", s.getStoreName());
+                                        intent.putExtra("totalSeat", s.getTotalSeat().toString());
+                                        intent.putExtra("type", s.getType());
+                                        Log.v("total Seat : ", s.getTotalSeat().toString());
+
+                                        startActivity(intent);
+                                    }
+                                    else{
+                                        Toast.makeText(getBaseContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
                             });
 
                         } else {
                             Store s = new Store();
+                            s.addNull();
                             stores.add(s);
                         }
                     }
                 });
+
+
 
     }
 

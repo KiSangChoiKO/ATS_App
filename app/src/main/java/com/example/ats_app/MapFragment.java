@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
@@ -177,7 +178,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             if (point.havePoint) sCnt++;
                             else fCnt++;
                             finalStore.setP(new LatLng(point.getY(),point.getX()));
-                            createMarker(new LatLng(point.getY(),point.getX()), finalStore);
+                            createMarker(new LatLng(point.getY(),point.getX()), finalStore,
+                                    finalStore.get_left_table_cnt(finalStore.getPositionIndex()));
                         }
                         Log.d("TEST_CODE", String.format("성공 : %s, 실패 : %s", sCnt, fCnt));
                     }
@@ -263,7 +265,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onLowMemory();
     }
 
-    public void createMarker(LatLng loc, Store store){
+    public void createMarker(LatLng loc, Store store, int left_table){
         Marker marker = new Marker();
         marker.setOnClickListener(new Overlay.OnClickListener() {
 
@@ -279,7 +281,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     intent.putExtra("id", store.getId());
                     intent.putExtra("introduce", store.getIntroduce());
                     intent.putExtra("phone", store.getPhone());
-                    intent.putExtra("positionIndex", store.getPositionIndex().toString());
+                    intent.putExtra("positionIndex", store.getPositionIndex());
                     intent.putExtra("storeName", store.getStoreName());
                     intent.putExtra("totalSeat", store.getTotalSeat().toString());
                     intent.putExtra("type", store.getType());
@@ -312,8 +314,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             marker.setIconTintColor(Color.YELLOW);
         }
 
-        marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + String.valueOf(store.getTotalSeat()));
+        //marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + String.valueOf(store.getTotalSeat()));
+        marker.setCaptionText(store.getStoreName() + "\n" + "남은 자리 : " + left_table);
         marker.setCaptionTextSize(15);
 
+    }
+
+    public void cameraUpdate(CameraUpdate cm){
+        naverMap.moveCamera(cm);
+        Log.v("test",cm.toString());
     }
 }

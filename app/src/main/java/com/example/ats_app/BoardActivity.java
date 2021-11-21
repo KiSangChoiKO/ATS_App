@@ -113,7 +113,7 @@ public class BoardActivity extends AppCompatActivity {
             ImageView v1 = new ImageView(getBaseContext());
 
             String filename = thingArrayList.get(v).getType();
-            if(filename.equals("twotable24")){
+                if(filename.equals("twotable24")){
                 v1.setImageResource(R.drawable.twotable24);
                 key = 0;
                 left_table++;
