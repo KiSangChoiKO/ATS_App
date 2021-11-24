@@ -72,11 +72,5 @@ public class Thing {
     public void connect_view(){
 
     }
-
-    public void set_ratio_xy(float ratio){
-        this.x *= ratio;
-        this.y *= ratio;
-    }
-
 }
 
